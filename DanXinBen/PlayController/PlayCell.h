@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface PlayCell : UITableViewCell
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UIButton *downBtn;
 
 @end

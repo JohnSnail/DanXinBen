@@ -16,4 +16,5 @@
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 
 -(void)setParam:(AlbumItem *)item;
+
 @end

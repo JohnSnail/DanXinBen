@@ -9,6 +9,7 @@
  */
 
 #import "WXController.h"
+#import "Header.h"
 
 @interface WXController ()
 {
@@ -24,7 +25,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.view.backgroundColor = viewBackColor;
+//        self.view.backgroundColor = viewBackColor;
     }
     return self;
 }
@@ -43,10 +44,11 @@
     _backGroundImage.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:_backGroundImage];
     
-    self.dtTitle = @"官方微信";
+//    self.dtTitle = @"官方微信";
+    self.navigationItem.titleView = [CommentMethods navigationTitleView:@"官方微信"];
     
     _sendWX = [UIButton buttonWithType:UIButtonTypeCustom];
-    _sendWX.frame = CGRectMake(0, mainscreenhight - 60, 320, mainscreenhight);
+    _sendWX.frame = CGRectMake(0, mainScreenHeight - 60, mainScreenWidth, mainScreenHeight);
     [_sendWX addTarget:self action:@selector(sendtoWXAction) forControlEvents:UIControlEventTouchUpInside];
     _sendWX.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_sendWX];
@@ -62,14 +64,5 @@
     NSString *str =@"weixin://qr/JnXv90fE6hqVrQOU9yA0";
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
 }
-
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 @end

@@ -8,7 +8,7 @@
 
 #import "DTBaseViewController.h"
 
-@interface DTTimingViewController : DTBaseViewController<UITableViewDelegate, UITableViewDataSource>
+@interface DTTimingViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tbvTiming;
 

@@ -8,8 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "TrackItem.h"
+#import "Header.h"
 
 @interface DownList : NSObject
+{
+    FMDatabase *_db;
+}
+
 + (DownList *)sharedManager;
 
 //创建数据库
@@ -24,13 +29,16 @@
 //修改节目信息
 -(void)mergeWithContent:(TrackItem *)trackModel;
 
-//获取下载节目数据
--(NSArray *)findDownListData:(NSString *)downStatus;
+//获取正在下载节目数据
+-(NSArray *)getDowningData;
 
-//获取下载完成内页数据
--(NSArray *)getAlbumContentData:(NSInteger)album_id andRank:(NSString *)rank;
+//获取下载完成数据信息；
+-(NSArray *)getDownedData:(NSNumber *)album_id;
 
 //判断是否已下载
 -(BOOL)exist:(NSInteger)track_id;
+
+//获取下载完成专辑
+-(NSArray *)getAlbumData;
 
 @end

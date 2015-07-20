@@ -9,7 +9,8 @@
  */
 
 #import <UIKit/UIKit.h>
+//#import "DTBaseViewController.h"
 
-@interface WXController : DTBaseViewController
+@interface WXController : UIViewController
 
 @end

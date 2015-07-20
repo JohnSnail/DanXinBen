@@ -8,7 +8,10 @@
 
 #import "DTTimingViewController.h"
 #import "DTTimingManager.h"
+#import "CommentMethods.h"
 #import "UIAlertView+Blocks.h"
+#import "PlayViewController.h"
+#import "Header.h"
 
 @interface DTTimingViewController ()
 
@@ -54,20 +57,10 @@
 
 - (void)layoutUI
 {
-    self.dtTitle = @"播放定时关闭";
-    
-    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.backgroundColor = [UIColor clearColor];
-    backBtn.frame = CGRectMake(0, 0, 12, 20);
-    [backBtn setImage:[UIImage imageNamed:@"back_general"] forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(dismissViewController:) forControlEvents:UIControlEventTouchUpInside];
-    [backBtn setEnlargeEdge:28];
-    self.dtLeftCustomView = backBtn;
-}
-
-- (void)dismissViewController:(id)sender
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
+    self.tbvTiming.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = CustomBgColor;
+        
+    self.navigationItem.titleView = [CommentMethods navigationTitleView:@"播放定时关闭"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -89,12 +82,15 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell.backgroundColor = [UIColor clearColor];
+        cell.textLabel.textColor = NavTitleColor;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     UIImageView * lineImg = [CommentMethods cuttingLineWithOriginx:10 andOriginY:43.5];
     [cell.contentView addSubview:lineImg];
     cell.accessoryType = UITableViewCellAccessoryNone;
     
-    int idx = indexPath.row;
+    NSInteger idx = indexPath.row;
     NSDictionary *dict = [_timingData objectAtIndex:idx];
     cell.textLabel.text = [dict objectForKey:@"content"];
     if ([[dict objectForKey:@"state"] integerValue] == [DTTimingManager sharedDTTimingManager].timingState){
@@ -108,11 +104,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    int selectIdx = indexPath.row;
+    NSInteger selectIdx = indexPath.row;
     NSDictionary *selectDict = [_timingData objectAtIndex:selectIdx];
     NSNumber *timingState = [selectDict objectForKey:@"state"];
     if ([timingState integerValue] == TimingStateAfterCurrentFinish) {
-        if([[PlayController sharedManager].trackModel.track_id integerValue] != 0) {
+        if([[PlayViewController sharedManager].playTrack.track_id integerValue] != 0) {
             [[DTTimingManager sharedDTTimingManager] startTiming:TimingStateAfterCurrentFinish];
         } else {
             [UIAlertView showWithTitle:@"温馨提示" message:@"当前没有播放节目" cancelButtonTitle:@"确定" otherButtonTitles:nil tapBlock:nil];

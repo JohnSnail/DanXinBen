@@ -9,27 +9,35 @@
 #import "MainTableViewCell.h"
 #import "AlbumItem.h"
 #import "UIImageView+AFNetworking.h"
+#import "Header.h"
 
 @implementation MainTableViewCell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+-(void)addImageViewTap
 {
-    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"MainTableViewCell" owner:nil options:nil];
-    self = nib[0];
-    if (self) {
-        // Initialization code
+    self.backgroundColor = CustomBgColor;
+
+    UITapGestureRecognizer *tapRecognizer1=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(PassToDelegate:)];
+    self.firstImageView.tag = 101;
+    self.firstImageView.userInteractionEnabled=YES;
+    [self.firstImageView addGestureRecognizer:tapRecognizer1];
+    
+    UITapGestureRecognizer *tapRecognizer2=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(PassToDelegate:)];
+    self.secondImageView.tag = 102;
+    self.secondImageView.userInteractionEnabled=YES;
+    [self.secondImageView addGestureRecognizer:tapRecognizer2];
+    
+    UITapGestureRecognizer *tapRecognizer3=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(PassToDelegate:)];
+    self.thirdImageView.tag = 103;
+    self.thirdImageView.userInteractionEnabled=YES;
+    [self.thirdImageView addGestureRecognizer:tapRecognizer3];
+}
+
+-(void)PassToDelegate:(UITapGestureRecognizer*) singleTap
+{
+    if (_callBack) {
+        _callBack(singleTap.view.tag);
     }
-    return self;
-}
-
-- (void)awakeFromNib {
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 -(void)setParam:(AlbumItem *)item
@@ -44,8 +52,8 @@
         }else{
             self.firstListenLabel.text = [NSString stringWithFormat:@"%@",item.play_times];
         }
-        
     }else if(item.index.integerValue%3 == 1){
+        
         [self.secondImageView setImageWithURL:[NSURL URLWithString:item.image_url] placeholderImage:[UIImage imageNamed:@"recoAlbum"]];
         self.secondLabel.text = item.title;
         if (item.play_times.integerValue > 10000) {
@@ -57,6 +65,7 @@
         }
         
     }else if(item.index.integerValue%3 == 2){
+        
         [self.thirdImageView setImageWithURL:[NSURL URLWithString:item.image_url] placeholderImage:[UIImage imageNamed:@"recoAlbum"]];
         self.thirdLabel.text = item.title;
         if (item.play_times.integerValue > 10000) {
@@ -66,27 +75,7 @@
         }else{
             self.thirdListenLabel.text = [NSString stringWithFormat:@"%@",item.play_times];
         }
-    }
-}
-
-
--(void)setCellHidden:(BOOL)isShow
-{
-    self.firstImageView.hidden = isShow;
-    self.secondImageView.hidden = isShow;
-    self.thirdImageView.hidden = isShow;
-    self.firstLabel.hidden = isShow;
-    self.secondLabel.hidden = isShow;
-    self.thirdLabel.hidden = isShow;
-    self.firstListenLabel.hidden = isShow;
-    self.secondListenLabel.hidden = isShow;
-    self.thirdListenLabel.hidden = isShow;
-    self.firstListenIcon.hidden = isShow;
-    self.secondListenIcon.hidden = isShow;
-    self.thirdListenIcon.hidden = isShow;
-    self.firstBg.hidden = isShow;
-    self.secondBg.hidden = isShow;
-    self.thirdBg.hidden = isShow;
+    }    
 }
 
 @end

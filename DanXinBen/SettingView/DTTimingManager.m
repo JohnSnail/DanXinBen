@@ -7,6 +7,8 @@
 //
 
 #import "DTTimingManager.h"
+#import <AppMacro.h>
+#import <AudioService.h>
 
 @implementation DTTimingManager
 
@@ -26,33 +28,33 @@ NSString *const kTimingClock = @"kTimingClock";
 {
     switch (currentTimingState) {
         case TimingStateNone:{
-            [iConsole log:@"不开启"];
+//            [iConsole log:@"不开启"];
         }
             break;
         case TimingStateTenMins:{
-            [iConsole log:@"10min"];
+//            [iConsole log:@"10min"];
 
         }
             break;
         case TimingStateTwentyMins:{
-            [iConsole log:@"20min"];
+//            [iConsole log:@"20min"];
         }
             break;
         case TimingStateThirtyMins:{
-            [iConsole log:@"30min"];
+//            [iConsole log:@"30min"];
         }
             break;
         case TimingStateOneHour:{
-            [iConsole log:@"60min"];
+//            [iConsole log:@"60min"];
         }
             break;
         case TimingStateNinetyMins:{
-            [iConsole log:@"90min"];
+//            [iConsole log:@"90min"];
         }
             break;
 
         case TimingStateAfterCurrentFinish:{
-            [iConsole log:@"本区播放完成之后"];
+//            [iConsole log:@"本区播放完成之后"];
         }
             break;
         default:

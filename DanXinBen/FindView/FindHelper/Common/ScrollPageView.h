@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "CustomTableView.h"
+#import "CategoryItem.h"
+#import "AlbumItem.h"
 
 @protocol ScrollPageViewDelegate <NSObject>
 -(void)didScrollPageViewChangedPage:(NSInteger)aPage;
@@ -23,6 +25,10 @@
 @property (nonatomic,retain) NSMutableArray *contentItems;
 
 @property (nonatomic,assign) id<ScrollPageViewDelegate> delegate;
+
+@property (nonatomic, strong) CategoryItem *categoryItem;
+
+@property (nonatomic, copy) void(^AlbumCallBack)(NSInteger, AlbumItem *);
 
 #pragma mark 添加ScrollowViewd的ContentView
 -(void)setContentOfTables:(NSInteger)aNumerOfTables;

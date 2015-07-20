@@ -9,13 +9,14 @@
 #import "MainListViewController.h"
 #import "MainListViewCell.h"
 #import "AlbumContentViewController.h"
-#import "ListWireframe.h"
+#import "Header.h"
 
-#define MainListCellIdentifier @"MainListViewCell"
+static NSString* const MainListCellIdentifier = @"MainListViewCell";
 
 @interface MainListViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *mainListTbView;
+@property (nonatomic, strong) NSMutableArray       *mainListItems;
 
 @end
 
@@ -25,12 +26,32 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.mainListTbView.separatorStyle = NO;
+    self.mainListTbView.backgroundColor = [UIColor clearColor];
+    self.mainListTbView.backgroundView = nil;
+    self.view.backgroundColor = CustomBgColor;
+
+    self.navigationItem.backBarButtonItem = [CommentMethods commendBackItem];
     [self.mainListTbView registerClass:[MainListViewCell class] forCellReuseIdentifier:MainListCellIdentifier];
+    
+    [self getNetSeviceData];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)getNetSeviceData
+{
+    self.mainListItems = [NSMutableArray arrayWithCapacity:0];
+    
+    [[NetManager sharedNetManager] getMainData:@(0) andSub_category_id:@(subCategoryId) Success:^(NSDictionary* sucRes) {
+        [self.mainListItems removeAllObjects];
+        NSArray *albumList = sucRes[@"album_list"];
+        for(NSDictionary *dic in albumList)
+        {
+            AlbumItem *albumItem = [[AlbumItem alloc]initWithDict:dic];
+            [self.mainListItems addObject:albumItem];
+        }
+        [self.mainListTbView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+    } failure:^(NSDictionary* failRes) {
+        
+    }];
 }
 
 #pragma mark - UITableViewDelegate and DataSource Methods
@@ -54,6 +75,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MainListViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MainListCellIdentifier forIndexPath:indexPath];
+    cell.backgroundColor = [UIColor clearColor];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     AlbumItem *item = [self.mainListItems objectAtIndex:indexPath.row];
@@ -65,17 +87,11 @@
 {
     AlbumItem *item = [self.mainListItems objectAtIndex:indexPath.row];
     
-    [[ListWireframe sharedManager] pushAlbumContentController:self andAlbum:item.id];
+    AlbumContentViewController *albumVC = [[AlbumContentViewController alloc]init];
+    albumVC.hidesBottomBarWhenPushed = YES;
+    albumVC.albumId = item.album_id;
+    albumVC.playtimes = item.play_times;
+    [self.navigationController pushViewController:albumVC animated:YES];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

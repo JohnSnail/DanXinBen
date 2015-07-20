@@ -1,0 +1,68 @@
+{
+  "name": "DTPods",
+  "version": "0.1.13",
+  "summary": "duotin pods",
+  "description": "                   A longer description of DTPods in Markdown format.\n\n                   * Think: Why did you write this? What is the focus? What does it do?\n                   * CocoaPods will be using this to generate tags, and improve search results.\n                   * Try to keep it short, snappy and to the point.\n                   * Finally, don't worry about the indent, CocoaPods strips it!\n",
+  "homepage": "https://git.danxinben.com/vienta/dtpods",
+  "license": "MIT (LICENSE)",
+  "authors": {
+    "Vienta": "yongxingshu@foxmail.com"
+  },
+  "platforms": {
+    "ios": "5.0"
+  },
+  "source": {
+    "git": "http://git.danxinben.com:7070/vienta/dtpods.git",
+    "tag": "0.1.13"
+  },
+  "prefix_header_contents": "#import \"DTPodsHeader.h\"",
+  "source_files": "DTPods",
+  "exclude_files": [
+    "DTPods/Util/GTMBase64.m",
+    "DTPods/OrigamiEngine/*.{h,m}"
+  ],
+  "frameworks": [
+    "Foundation",
+    "QuartzCore",
+    "SystemConfiguration",
+    "CoreGraphics",
+    "UIKit"
+  ],
+  "requires_arc": true,
+  "subspecs": [
+    {
+      "name": "ChineseToPinyin",
+      "source_files": "DTPods/ChineseToPinyin/*.{h,m}"
+    },
+    {
+      "name": "MRStackView",
+      "source_files": "DTPods/MRStackView/*.{h,m}"
+    },
+    {
+      "name": "Util",
+      "requires_arc": false,
+      "source_files": "DTPods/Util/*.{h,m}"
+    },
+    {
+      "name": "DownloadService",
+      "source_files": "DTPods/DownloadService/*.{h,m}"
+    },
+    {
+      "name": "AudioService",
+      "source_files": "DTPods/AudioService/*.{h,m}"
+    },
+    {
+      "name": "OrigamiEngine",
+      "requires_arc": false,
+      "source_files": "DTPods/OrigamiEngine/*.{h,m}"
+    },
+    {
+      "name": "Addition",
+      "source_files": "DTPods/Addition/*.{h,m}"
+    },
+    {
+      "name": "Model",
+      "source_files": "DTPods/Model/*.{h,m}"
+    }
+  ]
+}

@@ -10,6 +10,7 @@
 @class AlbumItem;
 
 @interface MainTableViewCell : UITableViewCell
+
 @property (strong, nonatomic) IBOutlet UIImageView *firstImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *secondImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *thirdImageView;
@@ -26,7 +27,9 @@
 @property (strong, nonatomic) IBOutlet UILabel *secondBg;
 @property (strong, nonatomic) IBOutlet UILabel *thirdBg;
 
+@property (nonatomic, copy) void(^callBack)(NSInteger);
+
+-(void)addImageViewTap;
 - (void)setParam:(AlbumItem *)item;
--(void)setCellHidden:(BOOL)isShow;
 
 @end

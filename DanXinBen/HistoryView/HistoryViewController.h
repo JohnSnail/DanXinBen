@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface HistoryViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UIButton *editBtn;
 
 @end

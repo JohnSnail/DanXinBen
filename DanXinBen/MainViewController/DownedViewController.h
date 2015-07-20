@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class AlbumItem;
 
 @interface DownedViewController : UIViewController
+
+-(void)getDownedData:(AlbumItem *)album;
 
 @end

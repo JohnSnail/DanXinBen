@@ -7,7 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MCProgressBarView.h"
+@class TrackItem;
+typedef void(^SelectStatusBlock)(BOOL);
 
 @interface DowningCell : UITableViewCell
+
+@property (strong, nonatomic) IBOutlet UILabel *trackTitle;
+@property (strong, nonatomic) IBOutlet UILabel *perLabel;
+@property (strong, nonatomic) IBOutlet UIButton *selectBtn;
+@property (strong, nonatomic) IBOutlet UILabel *progressLabel;
+@property (strong, nonatomic) MCProgressBarView *downProgressView;
+@property (copy, nonatomic) SelectStatusBlock statusBlock;
+
+- (void)updateUIWithBytesRead:(long long)totalBytesReadForFile totalRead:(long long)totalBytesExpectedToReadForFile;
+
+-(void)setEditeStatus:(BOOL)editeStatus;
+-(void)setDowningCell:(TrackItem *)track;
+
+- (IBAction)selectAction:(UIButton *)sender;
 
 @end

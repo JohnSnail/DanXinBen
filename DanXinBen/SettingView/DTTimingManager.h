@@ -6,6 +6,8 @@
 //  Copyright (c) 2014年 Duotin Network Technology Co.,LTD. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
+
 typedef NS_ENUM(NSUInteger, TimingState) {
     TimingStateNone = 0,            //不开启
     TimingStateTenMins = 10 * 60,

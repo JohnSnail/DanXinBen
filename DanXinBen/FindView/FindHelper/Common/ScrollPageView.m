@@ -7,7 +7,11 @@
 //
 
 #import "ScrollPageView.h"
-#import "HomeViewCell.h"
+//#import "HomeViewCell.h"
+#import "MainListViewCell.h"
+#import "NetManager.h"
+#import "Header.h"
+#import "AlbumContentViewController.h"
 
 @implementation ScrollPageView
 
@@ -36,6 +40,8 @@
         NSLog(@"ScrollViewFrame:(%f,%f)",self.frame.size.width,self.frame.size.height);
         _scrollView.pagingEnabled = YES;
         _scrollView.delegate = self;
+        _scrollView.showsVerticalScrollIndicator = NO;
+        _scrollView.showsHorizontalScrollIndicator = YES;
     }
     [self addSubview:_scrollView];
 }
@@ -50,16 +56,23 @@
 #pragma mark 添加ScrollowViewd的ContentView
 -(void)setContentOfTables:(NSInteger)aNumerOfTables{
     for (int i = 0; i < aNumerOfTables; i++) {
-        CustomTableView *vCustomTableView = [[CustomTableView alloc] initWithFrame:CGRectMake(320 * i, 0, 320, self.frame.size.height)];
+        CustomTableView *vCustomTableView = [[CustomTableView alloc] initWithFrame:CGRectMake(mainScreenWidth * i, 0, mainScreenWidth, self.frame.size.height)];
         vCustomTableView.delegate = self;
         vCustomTableView.dataSource = self;
+        vCustomTableView.backgroundColor = [UIColor clearColor];
+        vCustomTableView.homeTableView.separatorStyle = NO;
+        
         //为table添加嵌套HeadderView
-        [self addLoopScrollowView:vCustomTableView];
+//        [self addLoopScrollowView:vCustomTableView];
         [_scrollView addSubview:vCustomTableView];
         [_contentItems addObject:vCustomTableView];
+        
+//        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, mainScreenWidth, 100)];
+//        vCustomTableView.homeTableView.tableFooterView = view;
+        
         [vCustomTableView release];
     }
-    [_scrollView setContentSize:CGSizeMake(320 * aNumerOfTables, self.frame.size.height)];
+    [_scrollView setContentSize:CGSizeMake(mainScreenWidth * aNumerOfTables, self.frame.size.height)];
 }
 
 #pragma mark 移动ScrollView到某个页面
@@ -79,57 +92,23 @@
         return;
     }
     CustomTableView *vTableContentView =(CustomTableView *)[_contentItems objectAtIndex:aIndex];
-    [vTableContentView forceToFreshData];
+    [vTableContentView forceToFreshData:self.categoryItem];
+}
+
+-(void)setCategoryItem:(CategoryItem *)categoryItem
+{
+    _categoryItem = categoryItem;
 }
 
 #pragma mark 添加HeaderView
 -(void)addLoopScrollowView:(CustomTableView *)aTableView {
     //添加一张默认图片
-    SGFocusImageItem *item = [[[SGFocusImageItem alloc] initWithDict:@{@"image": [NSString stringWithFormat:@"girl%d",2]} tag:-1] autorelease];
-    SGFocusImageFrame *bannerView = [[SGFocusImageFrame alloc] initWithFrame:CGRectMake(0, -105, 320, 105) delegate:aTableView imageItems:@[item] isAuto:YES];
-    aTableView.homeTableView.tableHeaderView = bannerView;
-    [bannerView release];
-    
+    ;
 }
 
 #pragma mark 改变TableView上面滚动栏的内容
 -(void)changeHeaderContentWithCustomTable:(CustomTableView *)aTableContent{
-    int length = 4;
-    NSMutableArray *tempArray = [NSMutableArray array];
-    for (int i = 0 ; i < length; i++)
-    {
-        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                              [NSString stringWithFormat:@"title%d",i],@"title" ,
-                              [NSString stringWithFormat:@"girl%d",(i + 1)],@"image",
-                              nil];
-        [tempArray addObject:dict];
-    }
-    
-    NSMutableArray *itemArray = [NSMutableArray arrayWithCapacity:length+2];
-    //添加最后一张图 用于循环
-    if (length > 1)
-    {
-        NSDictionary *dict = [tempArray objectAtIndex:length-1];
-        SGFocusImageItem *item = [[[SGFocusImageItem alloc] initWithDict:dict tag:-1] autorelease];
-        [itemArray addObject:item];
-    }
-    for (int i = 0; i < length; i++)
-    {
-        NSDictionary *dict = [tempArray objectAtIndex:i];
-        SGFocusImageItem *item = [[[SGFocusImageItem alloc] initWithDict:dict tag:i] autorelease];
-        [itemArray addObject:item];
-        
-    }
-    //添加第一张图 用于循环
-    if (length >1)
-    {
-        NSDictionary *dict = [tempArray objectAtIndex:0];
-        SGFocusImageItem *item = [[[SGFocusImageItem alloc] initWithDict:dict tag:length] autorelease];
-        [itemArray addObject:item];
-    }
-    
-    SGFocusImageFrame *vFocusFrame = (SGFocusImageFrame *)aTableContent.homeTableView.tableHeaderView;
-    [vFocusFrame changeImageViewsContent:itemArray];
+    ;
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -139,7 +118,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    int page = (_scrollView.contentOffset.x+320/2.0) / 320;
+    int page = (_scrollView.contentOffset.x+mainScreenWidth/2.0) / mainScreenWidth;
     if (mCurrentPage == page) {
         return;
     }
@@ -167,58 +146,33 @@
 }
 
 -(UITableViewCell *)cellForRowInTableView:(UITableView *)aTableView IndexPath:(NSIndexPath *)aIndexPath FromView:(CustomTableView *)aView{
-    static NSString *vCellIdentify = @"homeCell";
-    HomeViewCell *vCell = [aTableView dequeueReusableCellWithIdentifier:vCellIdentify];
+    static NSString *vCellIdentify = @"MainListViewCell";
+    MainListViewCell *vCell = [aTableView dequeueReusableCellWithIdentifier:vCellIdentify];
     if (vCell == nil) {
-        vCell = [[[NSBundle mainBundle] loadNibNamed:@"HomeViewCell" owner:self options:nil] lastObject];
+        vCell = [[[NSBundle mainBundle] loadNibNamed:@"MainListViewCell" owner:self options:nil] lastObject];
+        vCell.selectionStyle = UITableViewCellAccessoryNone;
     }
     
-    NSInteger vNewIndex = aIndexPath.row % 4 + 1;
-    vCell.headerImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"new%d",vNewIndex]];
+    if (aView.tableInfoArray.count > 0) {
+        AlbumItem *album = [aView.tableInfoArray objectAtIndex:aIndexPath.row];
+        [vCell setParam:album];
+    }
+    
     return vCell;
 }
 
 #pragma mark CustomTableViewDelegate
 -(float)heightForRowAthIndexPath:(UITableView *)aTableView IndexPath:(NSIndexPath *)aIndexPath FromView:(CustomTableView *)aView{
-    HomeViewCell *vCell = [[[NSBundle mainBundle] loadNibNamed:@"HomeViewCell" owner:self options:nil] lastObject];
+    MainListViewCell *vCell = [[[NSBundle mainBundle] loadNibNamed:@"MainListViewCell" owner:self options:nil] lastObject];
     return vCell.frame.size.height;
 }
 
 -(void)didSelectedRowAthIndexPath:(UITableView *)aTableView IndexPath:(NSIndexPath *)aIndexPath FromView:(CustomTableView *)aView{
-}
-
--(void)loadData:(void(^)(int aAddedRowCount))complete FromView:(CustomTableView *)aView{
-    //    double delayInSeconds = 1.0;
-    //    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    //    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-    for (int i = 0; i < 4; i++) {
-        [aView.tableInfoArray  addObject:@"0"];
+    AlbumItem *item = [aView.tableInfoArray objectAtIndex:aIndexPath.row];
+    if (_AlbumCallBack) {
+        _AlbumCallBack(aIndexPath.row,item);
     }
-    if (complete) {
-        complete(4);
-    }
-    //    });
+    
 }
-
--(void)refreshData:(void(^)())complete FromView:(CustomTableView *)aView{
-    double delayInSeconds = 1.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [aView.tableInfoArray removeAllObjects];
-        for (int i = 0; i < 4; i++) {
-            [aView.tableInfoArray addObject:@"0"];
-        }
-        //改变header显示图片
-        [self changeHeaderContentWithCustomTable:aView];
-        if (complete) {
-            complete();
-        }
-    });
-}
-
-- (BOOL)tableViewEgoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view FromView:(CustomTableView *)aView{
-   return  aView.reloading;
-}
-
 
 @end

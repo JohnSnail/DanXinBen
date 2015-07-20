@@ -10,6 +10,4 @@
 
 @interface MainListViewController : UIViewController
 
-@property (nonatomic, strong) NSArray       *mainListItems;
-
 @end

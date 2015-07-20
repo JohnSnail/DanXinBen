@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EGORefreshTableHeaderView.h"
-#import "SGFocusImageFrame.h"
-#import "SGFocusImageItem.h"
+#import "CategoryItem.h"
 
 @class CustomTableView;
 @protocol CustomTableViewDelegate <NSObject>
@@ -18,11 +16,7 @@
 -(void)didSelectedRowAthIndexPath:(UITableView *)aTableView IndexPath:(NSIndexPath *)aIndexPath FromView:(CustomTableView *)aView;
 -(void)loadData:(void(^)(int aAddedRowCount))complete FromView:(CustomTableView *)aView;
 -(void)refreshData:(void(^)())complete FromView:(CustomTableView *)aView;
-@optional
-//- (void)tableViewWillBeginDragging:(UIScrollView *)scrollView;
-//- (void)tableViewDidScroll:(UIScrollView *)scrollView;
-////- (void)tableViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate;
-//- (BOOL)tableViewEgoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view FromView:(CustomTableView *)aView;
+
 @end
 
 @protocol CustomTableViewDataSource <NSObject>
@@ -32,10 +26,11 @@
 
 @end
 
-@interface CustomTableView : UIView<UITableViewDataSource,UITableViewDelegate,EGORefreshTableHeaderDelegate,SGFocusImageFrameDelegate>
+@interface CustomTableView : UIView<UITableViewDataSource,UITableViewDelegate>
 {
-    EGORefreshTableHeaderView *_refreshHeaderView;
     NSInteger     mRowCount;
+    NSInteger     has_next;
+    NSNumber *    categoryId;
 }
 //  Reloading var should really be your tableviews datasource
 //  Putting it here for demo purposes
@@ -48,6 +43,6 @@
 
 - (void)reloadTableViewDataSource;
 #pragma mark 强制列表刷新
--(void)forceToFreshData;
+-(void)forceToFreshData:(CategoryItem *)item;
 
 @end

@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ScrollPageView.h"
+#import "MenuHrizontal.h"
 
 @interface FindViewController : UIViewController
 

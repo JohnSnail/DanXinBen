@@ -7,6 +7,7 @@
 //
 
 #import "MenuHrizontal.h"
+#import "Header.h"
 
 #define BUTTONITEMWIDTH   70
 
@@ -32,21 +33,35 @@
 }
 
 
+-(void) setButtonTitle:(NSString *)title button:(UIButton*) button{
+    
+    CGSize titleSize = [title sizeWithFont:button.titleLabel.font];
+        
+    titleSize.height = 35;
+    titleSize.width += 10;
+    
+    [button setFrame:CGRectMake(button.frame.origin.x, button.frame.origin.y, titleSize.width, titleSize.height)];
+    [button setTitle:title forState:UIControlStateNormal];
+}
+
 -(void)createMenuItems:(NSArray *)aItemsArray{
     int i = 0;
     float menuWidth = 0.0;
     for (NSDictionary *lDic in aItemsArray) {
-        NSString *vNormalImageStr = [lDic objectForKey:NOMALKEY];
-        NSString *vHeligtImageStr = [lDic objectForKey:HEIGHTKEY];
+
         NSString *vTitleStr = [lDic objectForKey:TITLEKEY];
-        float vButtonWidth = [[lDic objectForKey:TITLEWIDTH] floatValue];
+//        float vButtonWidth = [[lDic objectForKey:TITLEWIDTH] floatValue];
         UIButton *vButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [vButton setBackgroundImage:[UIImage imageNamed:vNormalImageStr] forState:UIControlStateNormal];
-        [vButton setBackgroundImage:[UIImage imageNamed:vHeligtImageStr] forState:UIControlStateSelected];
-        [vButton setTitle:vTitleStr forState:UIControlStateNormal];
-        [vButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//        [vButton setTitle:vTitleStr forState:UIControlStateNormal];
+        [self setButtonTitle:vTitleStr button:vButton];
+        
+        float vButtonWidth = vButton.frame.size.width;
+        
+        [vButton setTitleColor:NavTitleColor forState:UIControlStateNormal];
         [vButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [vButton setTitleColor:CustomColor forState:UIControlStateSelected];
         [vButton setTag:i];
+        vButton.titleLabel.font = [UIFont boldSystemFontOfSize:14];
         [vButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [vButton setFrame:CGRectMake(menuWidth, 0, vButtonWidth, self.frame.size.height)];
         [mScrollView addSubview:vButton];
@@ -72,6 +87,7 @@
 -(void)changeButtonsToNormalState{
     for (UIButton *vButton in mButtonArray) {
         vButton.selected = NO;
+        vButton.titleLabel.font = [UIFont boldSystemFontOfSize:14];
     }
 }
 
@@ -86,6 +102,7 @@
     UIButton *vButton = [mButtonArray objectAtIndex:aIndex];
     [self changeButtonsToNormalState];
     vButton.selected = YES;
+    vButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
     [self moveScrolViewWithIndex:aIndex];
 }
 
@@ -95,14 +112,14 @@
         return;
     }
      //宽度小于320肯定不需要移动
-    if (mTotalWidth <= 320) {
+    if (mTotalWidth <= mainScreenWidth) {
         return;
     }
     NSDictionary *vDic = [mItemInfoArray objectAtIndex:aIndex];
     float vButtonOrigin = [[vDic objectForKey:TOTALWIDTH] floatValue];
     if (vButtonOrigin >= 300) {
         if ((vButtonOrigin + 180) >= mScrollView.contentSize.width) {
-            [mScrollView setContentOffset:CGPointMake(mScrollView.contentSize.width - 320, mScrollView.contentOffset.y) animated:YES];
+            [mScrollView setContentOffset:CGPointMake(mScrollView.contentSize.width - mainScreenWidth, mScrollView.contentOffset.y) animated:YES];
             return;
         }
         

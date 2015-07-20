@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NavController : UINavigationController
+@interface NavController : UINavigationController<UIGestureRecognizerDelegate,UINavigationControllerDelegate>
+
+@property(nonatomic,weak) UIViewController* currentShowVC;
+@property(nonatomic,weak) UIViewController* playShowVC;
 
 @end

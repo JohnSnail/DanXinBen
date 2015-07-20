@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@class AlbumItem;
 
 @interface AlbumContentViewController : UIViewController
 
-- (void)addItems:(NSArray *)items;
+@property (nonatomic, strong) NSNumber *albumId;
+@property (nonatomic, strong) NSNumber *playtimes;
+
 @end

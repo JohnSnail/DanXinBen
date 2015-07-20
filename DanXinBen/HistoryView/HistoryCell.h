@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TrackItem.h"
 
 @interface HistoryCell : UITableViewCell
+@property (strong, nonatomic) IBOutlet UIImageView *albumImageView;
+@property (strong, nonatomic) IBOutlet UILabel *track_title;
+@property (strong, nonatomic) IBOutlet UILabel *album_title;
+@property (strong, nonatomic) IBOutlet UILabel *historyLabel;
+
+-(void)setHistoryModel:(TrackItem *)track;
 
 @end

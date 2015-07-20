@@ -7,17 +7,22 @@
 //
 
 #import "MoreAppCell.h"
+#import "MoreAppItem.h"
+#import "Header.h"
 
 @implementation MoreAppCell
 
-- (void)awakeFromNib {
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+-(void)setMoreCell:(MoreAppItem *)moreItem
+{
+    self.moreAppDesc.lineBreakMode = kTextLineBreakByCharWrapping;
+    self.moreAppDesc.numberOfLines = 0;
+    
+    self.moreAppTitle.textColor = UIColorFromRGB(134, 166, 201);
+    self.moreAppDesc.textColor = UIColorFromRGB(83, 110, 139);
+    
+    self.moreAppDesc.text = moreItem.appDesc;
+    self.moreAppTitle.text = moreItem.appTitle;
+    [self.moreAppImageView setImageWithURL:[NSURL URLWithString:moreItem.appImageUrl] placeholderImage:[UIImage imageNamed:@"MoreInfoRecomendedApp"]];
 }
 
 @end

@@ -94,7 +94,7 @@
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        self.acv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        self.acv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         CGFloat height = CGRectGetHeight(frame) * 0.8;
         self.acv.frame = CGRectMake((CGRectGetWidth(frame)-height)*0.5, 0, height, height);
         [self addSubview:self.acv];

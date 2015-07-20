@@ -10,4 +10,9 @@
 
 @interface MoreAppItem : NSObject
 
+@property (nonatomic, copy) NSString *appTitle;
+@property (nonatomic, copy) NSString *appDesc;
+@property (nonatomic, copy) NSString *appImageUrl;
+@property (nonatomic, copy) NSString *appStoreUrl;
+
 @end

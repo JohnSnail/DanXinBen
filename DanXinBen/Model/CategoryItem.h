@@ -10,4 +10,9 @@
 
 @interface CategoryItem : NSObject
 
+@property (nonatomic, strong) NSNumber *categoryId;
+@property (nonatomic, copy) NSString *title;
+
+- (instancetype)initWithDict:(NSDictionary *)dict;
+
 @end

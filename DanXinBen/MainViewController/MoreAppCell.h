@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@class MoreAppItem;
 
 @interface MoreAppCell : UITableViewCell
+@property (strong, nonatomic) IBOutlet UIImageView *moreAppImageView;
+@property (strong, nonatomic) IBOutlet UILabel *moreAppTitle;
+@property (strong, nonatomic) IBOutlet UILabel *moreAppDesc;
 
+-(void)setMoreCell:(MoreAppItem *)moreItem;
 @end

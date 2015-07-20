@@ -161,7 +161,7 @@ static UITapGestureRecognizer *tapRecognizer;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.titleView = [[CommentMethods sharedManager] navigationTitleView:@"意见反馈"];
+    self.navigationItem.titleView = [CommentMethods navigationTitleView:@"意见反馈"];
 
     [self setBackgroundColor];
     [self setupTableView];
@@ -178,7 +178,11 @@ static UITapGestureRecognizer *tapRecognizer;
     _shouldScrollToBottom = YES;
 
     self.mTableView.backgroundView = nil;
-    self.mTableView.backgroundColor = UIColorToRGB(0xf4f4f4);
+//    self.mTableView.backgroundColor = UIColorToRGB(0xf4f4f4);
+    self.mTableView.backgroundColor = CustomBgColor;
+    self.view.backgroundColor = [UIColor clearColor];
+//    self.mTableView.backgroundColor = [UIColor clearColor];
+//    self.view.backgroundColor = CustomBgColor;
     
     CGRect newRect = self.mTableView.frame;
     newRect.origin.y = settingHeight;
@@ -215,7 +219,11 @@ static UITapGestureRecognizer *tapRecognizer;
 
 - (void)setBackgroundColor {
     self.mTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
-    self.mToolBar.backgroundColor = [UIColor whiteColor];
+    UIImage *toolBarIMG = [UIImage imageNamed: @"TextField_bg"];
+    
+    if ([self.mToolBar respondsToSelector:@selector(setBackgroundImage:forToolbarPosition:barMetrics:)]) {
+        [self.mToolBar setBackgroundImage:toolBarIMG forToolbarPosition:0 barMetrics:0];
+    }
 }
 
 
@@ -346,8 +354,8 @@ static UITapGestureRecognizer *tapRecognizer;
         UIFont *font=[UIFont systemFontOfSize:14];
         CGSize stringSize=[aString sizeWithFont:font];
 
-        cell.timestampLabel.frame=CGRectMake((320-stringSize.width)/2, 12, stringSize.width, stringSize.height);
-        cell.timeImagView.frame=CGRectMake((320-stringSize.width)/2, 12, stringSize.width, stringSize.height);
+        cell.timestampLabel.frame=CGRectMake((mainScreenWidth-stringSize.width)/2, 12, stringSize.width, stringSize.height);
+        cell.timeImagView.frame=CGRectMake((mainScreenWidth-stringSize.width)/2, 12, stringSize.width, stringSize.height);
 
         cell.timestampLabel.text = aString;
 
@@ -370,8 +378,8 @@ static UITapGestureRecognizer *tapRecognizer;
         UIFont *font=[UIFont systemFontOfSize:14];
         CGSize stringSize=[aString sizeWithFont:font];
         
-        cell.timestampLabel.frame=CGRectMake((320-stringSize.width)/2, 12, stringSize.width, stringSize.height);
-        cell.timeImagView.frame=CGRectMake((320-stringSize.width)/2, 12, stringSize.width, stringSize.height);
+        cell.timestampLabel.frame=CGRectMake((mainScreenWidth-stringSize.width)/2, 12, stringSize.width, stringSize.height);
+        cell.timeImagView.frame=CGRectMake((mainScreenWidth-stringSize.width)/2, 12, stringSize.width, stringSize.height);
         
         cell.timestampLabel.text = aString;
 
@@ -394,7 +402,7 @@ static UITapGestureRecognizer *tapRecognizer;
 
 - (void)updateTableView:(NSError *)error {
     if ([self.mFeedbackData count]) {
-        [self.mTableView reloadData];
+        [self.mTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
     }
 }
 

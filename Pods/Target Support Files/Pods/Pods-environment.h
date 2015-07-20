@@ -1,0 +1,176 @@
+
+// To check if a library is compiled with CocoaPods you
+// can use the `COCOAPODS` macro definition which is
+// defined in the xcconfigs so it is available in
+// headers also when they are imported in the client
+// project.
+
+
+// ABMultiton
+#define COCOAPODS_POD_AVAILABLE_ABMultiton
+#define COCOAPODS_VERSION_MAJOR_ABMultiton 2
+#define COCOAPODS_VERSION_MINOR_ABMultiton 0
+#define COCOAPODS_VERSION_PATCH_ABMultiton 5
+
+// ABMultiton/Core
+#define COCOAPODS_POD_AVAILABLE_ABMultiton_Core
+#define COCOAPODS_VERSION_MAJOR_ABMultiton_Core 2
+#define COCOAPODS_VERSION_MINOR_ABMultiton_Core 0
+#define COCOAPODS_VERSION_PATCH_ABMultiton_Core 5
+
+// AFNetworking
+#define COCOAPODS_POD_AVAILABLE_AFNetworking
+#define COCOAPODS_VERSION_MAJOR_AFNetworking 1
+#define COCOAPODS_VERSION_MINOR_AFNetworking 3
+#define COCOAPODS_VERSION_PATCH_AFNetworking 4
+
+// DTPods
+#define COCOAPODS_POD_AVAILABLE_DTPods
+#define COCOAPODS_VERSION_MAJOR_DTPods 0
+#define COCOAPODS_VERSION_MINOR_DTPods 1
+#define COCOAPODS_VERSION_PATCH_DTPods 13
+
+// DTPods/Addition
+#define COCOAPODS_POD_AVAILABLE_DTPods_Addition
+#define COCOAPODS_VERSION_MAJOR_DTPods_Addition 0
+#define COCOAPODS_VERSION_MINOR_DTPods_Addition 1
+#define COCOAPODS_VERSION_PATCH_DTPods_Addition 13
+
+// DTPods/AudioService
+#define COCOAPODS_POD_AVAILABLE_DTPods_AudioService
+#define COCOAPODS_VERSION_MAJOR_DTPods_AudioService 0
+#define COCOAPODS_VERSION_MINOR_DTPods_AudioService 1
+#define COCOAPODS_VERSION_PATCH_DTPods_AudioService 13
+
+// DTPods/ChineseToPinyin
+#define COCOAPODS_POD_AVAILABLE_DTPods_ChineseToPinyin
+#define COCOAPODS_VERSION_MAJOR_DTPods_ChineseToPinyin 0
+#define COCOAPODS_VERSION_MINOR_DTPods_ChineseToPinyin 1
+#define COCOAPODS_VERSION_PATCH_DTPods_ChineseToPinyin 13
+
+// DTPods/DownloadService
+#define COCOAPODS_POD_AVAILABLE_DTPods_DownloadService
+#define COCOAPODS_VERSION_MAJOR_DTPods_DownloadService 0
+#define COCOAPODS_VERSION_MINOR_DTPods_DownloadService 1
+#define COCOAPODS_VERSION_PATCH_DTPods_DownloadService 13
+
+// DTPods/MRStackView
+#define COCOAPODS_POD_AVAILABLE_DTPods_MRStackView
+#define COCOAPODS_VERSION_MAJOR_DTPods_MRStackView 0
+#define COCOAPODS_VERSION_MINOR_DTPods_MRStackView 1
+#define COCOAPODS_VERSION_PATCH_DTPods_MRStackView 13
+
+// DTPods/Model
+#define COCOAPODS_POD_AVAILABLE_DTPods_Model
+#define COCOAPODS_VERSION_MAJOR_DTPods_Model 0
+#define COCOAPODS_VERSION_MINOR_DTPods_Model 1
+#define COCOAPODS_VERSION_PATCH_DTPods_Model 13
+
+// DTPods/OrigamiEngine
+#define COCOAPODS_POD_AVAILABLE_DTPods_OrigamiEngine
+#define COCOAPODS_VERSION_MAJOR_DTPods_OrigamiEngine 0
+#define COCOAPODS_VERSION_MINOR_DTPods_OrigamiEngine 1
+#define COCOAPODS_VERSION_PATCH_DTPods_OrigamiEngine 13
+
+// DTPods/Util
+#define COCOAPODS_POD_AVAILABLE_DTPods_Util
+#define COCOAPODS_VERSION_MAJOR_DTPods_Util 0
+#define COCOAPODS_VERSION_MINOR_DTPods_Util 1
+#define COCOAPODS_VERSION_PATCH_DTPods_Util 13
+
+// FMDB
+#define COCOAPODS_POD_AVAILABLE_FMDB
+#define COCOAPODS_VERSION_MAJOR_FMDB 2
+#define COCOAPODS_VERSION_MINOR_FMDB 3
+#define COCOAPODS_VERSION_PATCH_FMDB 0
+
+// FMDB/common
+#define COCOAPODS_POD_AVAILABLE_FMDB_common
+#define COCOAPODS_VERSION_MAJOR_FMDB_common 2
+#define COCOAPODS_VERSION_MINOR_FMDB_common 3
+#define COCOAPODS_VERSION_PATCH_FMDB_common 0
+
+// FMDB/standard
+#define COCOAPODS_POD_AVAILABLE_FMDB_standard
+#define COCOAPODS_VERSION_MAJOR_FMDB_standard 2
+#define COCOAPODS_VERSION_MINOR_FMDB_standard 3
+#define COCOAPODS_VERSION_PATCH_FMDB_standard 0
+
+// JSONKit-NoWarning
+#define COCOAPODS_POD_AVAILABLE_JSONKit_NoWarning
+#define COCOAPODS_VERSION_MAJOR_JSONKit_NoWarning 1
+#define COCOAPODS_VERSION_MINOR_JSONKit_NoWarning 2
+#define COCOAPODS_VERSION_PATCH_JSONKit_NoWarning 0
+
+// SCNetworkReachability
+#define COCOAPODS_POD_AVAILABLE_SCNetworkReachability
+#define COCOAPODS_VERSION_MAJOR_SCNetworkReachability 2
+#define COCOAPODS_VERSION_MINOR_SCNetworkReachability 0
+#define COCOAPODS_VERSION_PATCH_SCNetworkReachability 0
+
+// SCNetworkReachability/All
+#define COCOAPODS_POD_AVAILABLE_SCNetworkReachability_All
+#define COCOAPODS_VERSION_MAJOR_SCNetworkReachability_All 2
+#define COCOAPODS_VERSION_MINOR_SCNetworkReachability_All 0
+#define COCOAPODS_VERSION_PATCH_SCNetworkReachability_All 0
+
+// SCNetworkReachability/Compatibility
+#define COCOAPODS_POD_AVAILABLE_SCNetworkReachability_Compatibility
+#define COCOAPODS_VERSION_MAJOR_SCNetworkReachability_Compatibility 2
+#define COCOAPODS_VERSION_MINOR_SCNetworkReachability_Compatibility 0
+#define COCOAPODS_VERSION_PATCH_SCNetworkReachability_Compatibility 0
+
+// SCNetworkReachability/Core
+#define COCOAPODS_POD_AVAILABLE_SCNetworkReachability_Core
+#define COCOAPODS_VERSION_MAJOR_SCNetworkReachability_Core 2
+#define COCOAPODS_VERSION_MINOR_SCNetworkReachability_Core 0
+#define COCOAPODS_VERSION_PATCH_SCNetworkReachability_Core 0
+
+// SCNetworkReachability/Multithreading
+#define COCOAPODS_POD_AVAILABLE_SCNetworkReachability_Multithreading
+#define COCOAPODS_VERSION_MAJOR_SCNetworkReachability_Multithreading 2
+#define COCOAPODS_VERSION_MINOR_SCNetworkReachability_Multithreading 0
+#define COCOAPODS_VERSION_PATCH_SCNetworkReachability_Multithreading 0
+
+// SCNetworkReachability/Shared
+#define COCOAPODS_POD_AVAILABLE_SCNetworkReachability_Shared
+#define COCOAPODS_VERSION_MAJOR_SCNetworkReachability_Shared 2
+#define COCOAPODS_VERSION_MINOR_SCNetworkReachability_Shared 0
+#define COCOAPODS_VERSION_PATCH_SCNetworkReachability_Shared 0
+
+// SS-DomobAdSDK
+#define COCOAPODS_POD_AVAILABLE_SS_DomobAdSDK
+#define COCOAPODS_VERSION_MAJOR_SS_DomobAdSDK 4
+#define COCOAPODS_VERSION_MINOR_SS_DomobAdSDK 4
+#define COCOAPODS_VERSION_PATCH_SS_DomobAdSDK 8
+
+// UIActionSheet+Blocks
+#define COCOAPODS_POD_AVAILABLE_UIActionSheet_Blocks
+#define COCOAPODS_VERSION_MAJOR_UIActionSheet_Blocks 0
+#define COCOAPODS_VERSION_MINOR_UIActionSheet_Blocks 8
+#define COCOAPODS_VERSION_PATCH_UIActionSheet_Blocks 1
+
+// UIAlertView+Blocks
+#define COCOAPODS_POD_AVAILABLE_UIAlertView_Blocks
+#define COCOAPODS_VERSION_MAJOR_UIAlertView_Blocks 0
+#define COCOAPODS_VERSION_MINOR_UIAlertView_Blocks 8
+#define COCOAPODS_VERSION_PATCH_UIAlertView_Blocks 1
+
+// UMeng
+#define COCOAPODS_POD_AVAILABLE_UMeng
+#define COCOAPODS_VERSION_MAJOR_UMeng 2
+#define COCOAPODS_VERSION_MINOR_UMeng 2
+#define COCOAPODS_VERSION_PATCH_UMeng 1
+
+// WeixinSDK
+#define COCOAPODS_POD_AVAILABLE_WeixinSDK
+#define COCOAPODS_VERSION_MAJOR_WeixinSDK 1
+#define COCOAPODS_VERSION_MINOR_WeixinSDK 4
+#define COCOAPODS_VERSION_PATCH_WeixinSDK 3
+
+// macros_blocks
+#define COCOAPODS_POD_AVAILABLE_macros_blocks
+#define COCOAPODS_VERSION_MAJOR_macros_blocks 0
+#define COCOAPODS_VERSION_MINOR_macros_blocks 0
+#define COCOAPODS_VERSION_PATCH_macros_blocks 1
+

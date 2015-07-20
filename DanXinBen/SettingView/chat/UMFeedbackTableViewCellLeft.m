@@ -68,7 +68,6 @@
     CGSize labelSize = [self.textLabel.text sizeWithFont:[UIFont systemFontOfSize:14.0f]
                                        constrainedToSize:CGSizeMake(226.0f, MAXFLOAT)
                                            lineBreakMode:kTextLineBreakByWordWrapping];
-
     textLabelFrame.size.height = labelSize.height;
     textLabelFrame.origin.y = 20.0f + TOP_MARGIN;
     self.textLabel.frame = textLabelFrame;

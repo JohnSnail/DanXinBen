@@ -9,6 +9,7 @@
 #import "NetService.h"
 #import "AFJSONRequestOperation.h"
 #import "SCNetworkReachability.h"
+#import "AppConstant.h"
 
 @implementation NetService
 
@@ -56,10 +57,6 @@ static dispatch_queue_t duotin_network_queue() {
     [AFJSONRequestOperation addAcceptableContentTypes:[NSSet setWithObjects:@"text/html",@"application/json",@"text/json",@"text/javascript", nil]];
     [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
     
-//    self.parameterEncoding = AFJSONParameterEncoding;
-    // Accept HTTP Header; see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
-	
-    // By default, the example ships with SSL pinning enabled for the app.net API pinned against the public key of adn.cer file included with the example. In order to make it easier for developers who are new to AFNetworking, SSL pinning is automatically disabled if the base URL has been changed. This will allow developers to hack around with the example, without getting tripped up by SSL pinning.
     if ([[url scheme] isEqualToString:@"https"] && [[url host] isEqualToString:@"alpha-api.app.net"]) {
         self.defaultSSLPinningMode = AFSSLPinningModePublicKey;
     } else {
@@ -71,8 +68,8 @@ static dispatch_queue_t duotin_network_queue() {
 
 - (void)networkObserverReachabilityDidChange:(PBJNetworkObserver *)networkObserver
 {
-    BOOL isNetworkReachable = [networkObserver isNetworkReachable];
-    BOOL isCellularConnection = [networkObserver isCellularConnection];
+//    BOOL isNetworkReachable = [networkObserver isNetworkReachable];
+//    BOOL isCellularConnection = [networkObserver isCellularConnection];
 //    NSLog(@"network status changed reachable (%d),  cellular (%d)", isNetworkReachable, isCellularConnection);
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNetworkChanged object:networkObserver];
@@ -84,36 +81,23 @@ static dispatch_queue_t duotin_network_queue() {
         success:(void (^)(id sucRes))success
         failure:(void (^) (id failRes))failure
 {
-#if DEBUG
-        NSString *requestPathStr = [NSString stringWithFormat:@"REQUEST:%@%@",API_HOST, path];
-        [iConsole log:requestPathStr];
-        NSString *paramsStr = [NSString stringWithFormat:@"REQUEST PARAM :%@",parameters];
-        [iConsole log:paramsStr];
-#endif
         [self reachablityStatus:^(int netStatus) {
             [super getPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
 
                 if ([responseObject[@"error_code"] intValue] == kRequestSuccess) {
                     if (success) {
-                        success(responseObject[@"data"]);
+                        if ([[responseObject allKeys] containsObject:@"success"]){
+                            success(responseObject);
+                        }else{
+                            success(responseObject[@"data"]);
+                        }
                     }
-                } else {
+                }else {
                     if (failure) {
-#if DEBUG
-
-#endif
                         failure(responseObject);
                     }
                 }
-#if DEBUG
-                NSString *responseStr = [NSString stringWithFormat:@"RESPONSE:%@ FROM:%@",responseObject,operation.request.URL];
-                [iConsole log:responseStr];
-#endif
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-#if DEBUG
-                NSString *responseStr = [NSString stringWithFormat:@"RESPONSE:%@ FROM:%@",error,operation.request.URL];
-                [iConsole log:responseStr];
-#endif
                 if (failure) {
                     failure(error);
                 }
@@ -123,22 +107,12 @@ static dispatch_queue_t duotin_network_queue() {
             if (failure) {
                 failure(@(errStatus));
             }
-#if DEBUG
-            NSString *responseStr = [NSString stringWithFormat:@"RESPONSE:%d FROM:%@%@",errStatus,API_HOST,path];
-            [iConsole log:responseStr];
-#endif
         }];
 }
 
 - (void)postPath:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(id))success failure:(void (^)(id))failure
 {
     dispatch_async(duotin_network_queue(), ^{
-#if DEBUG
-        NSString *requestPathStr = [NSString stringWithFormat:@"POST:%@%@",API_HOST, path];
-        [iConsole log:requestPathStr];
-        NSString *paramsStr = [NSString stringWithFormat:@"POST PARAM :%@",parameters];
-        [iConsole log:paramsStr];
-#endif
         [self reachablityStatus:^(int netStatus) {
             
             [super postPath:path parameters:parameters success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
@@ -151,28 +125,16 @@ static dispatch_queue_t duotin_network_queue() {
                         failure(responseObject);
                     }
                 }
-#if DEBUG
-                NSString *responseStr = [NSString stringWithFormat:@"RESPONSE:%@ FROM:%@",responseObject,operation.request.URL];
-                [iConsole log:responseStr];
-#endif
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 if (failure) {
                     failure(error);
                 }
-#if DEBUG
-                NSString *responseStr = [NSString stringWithFormat:@"RESPONSE:%@ FROM:%@",error,operation.request.URL];
-                [iConsole log:responseStr];
-#endif
                 
             }];
         } fail:^(int errStatus) {
             if (failure) {
                 failure(@(errStatus));
             }
-#if DEBUG
-            NSString *responseStr = [NSString stringWithFormat:@"POST RESPONSE:%d FROM:%@%@",errStatus,API_HOST,path];
-            [iConsole log:responseStr];
-#endif
         }];
     });
 }
